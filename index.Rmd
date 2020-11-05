@@ -7,7 +7,7 @@ output:
     df_print: default
 runtime: shiny_prerendered
 description: >
-  Sampling and Simulations in R.
+  Quiz for module 7.
 ---
 
 
