@@ -1,0 +1,123 @@
+---
+title: "Generating Randomness & Programming - Quiz"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    df_print: default
+runtime: shiny_prerendered
+description: >
+  Sampling and Simulations in R.
+---
+
+
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(knitr)
+library(gridExtra)
+tutorial_options(exercise.timelimit = 10)
+
+
+```
+
+
+
+## Quiz
+
+### Question 1
+
+
+```
+x <- 1:100
+cor(x, sample(x))
+```
+
+```{r Q1, echo=FALSE}
+question("What is a likely output of the above command? - *Reminder: cor(a,b) calculates the correlation coefficient between a and b*",
+  answer("a number very close to 0",correct = TRUE,message="Yes, sample(x) will shuffle the values of x so that the correlation between x and sample(x) will be very close to zero"),
+  answer("0",message="No, the correlation will never be exactly 0"),
+  answer("1",message="No, sample() is randomly permuting all the values of x, so x and sample(x) will not be correlated."),
+  answer("a number close to 1",message="No, sample() is randomly permuting all the values of x, so x and sample(x) will not be correlated"),
+  answer("an error because sample(x) is not the same length as x",message="when we don't provide any value for the number of elements we want to pick, sample simply permutes all the elements, so sample(x) will still have the same length as x."),
+  allow_retry = TRUE,random_answer_order = TRUE
+)
+```
+
+
+### Question 2
+
+
+```{r, echo=FALSE}
+d <- data.frame(x=rnorm(n=100, mean=0, sd=1))
+
+```
+
+```{r}
+
+d %>%
+  ggplot(aes(x=x))+
+    geom_histogram()
+```
+
+
+```{r Q2, echo=FALSE}
+question("Which of these commands produced the data that was used to make the above histogram?",
+  answer("d <- data.frame(x=rnorm(100, mean=0, sd=1))",correct = TRUE,message="Yes, that's the one!"),
+  answer("d <- data.frame(x=rnorm(n=50, min=-2, max=2))",message="No, the parameters to enter in rnorm are the mean and standard deviation(sd) of the normal distribution, not min and max"),
+  answer("d <- data.frame(x=runif(n=20, -2.5, 2.5))",message="The histogram shows that n is greater than 20, since there is already a peak of more than 10 a bit below 0"),
+  answer("d <- data.frame(x=runif(n=80, min=-2, max=2))",message="The uniform distribution would be flater than that. Also there are values that are smaller than -2 and greater than 2"),
+  allow_retry = TRUE,random_answer_order = TRUE
+)
+```
+
+
+### Question 3
+
+```
+a <- 2
+for(i in 1:3){
+  a <- a+i
+}
+a
+```
+
+
+```{r Q3, echo=FALSE}
+question("What will be the output of above command?",
+  answer("8",correct = TRUE,message="Yes. At the beginning, a is given the value 2, then we enter the for loop. i is given the value 1, we add it to a, so a takes the value 3, then i takes the value 2, we add it to a so a becomes 3+2=5. Finally i takes the value 3. we add it to a so a becomes 5+3=8. We then print a outside the loop, so the ouput will be 8"),
+  answer("NULL, since we didn't use the function print()",message="No, the last command a is outside the loop, so we don't need the function print()"),
+  answer("7",message="No. a starts with the value 2, and for each iteration of the for loop, we add i to a. if you count carefully, we don't arrive at 7"),
+  answer("6",message="No. a starts with the value 2, and for each iteration of the for loop, we add i to a. if you count carefully, we don't arrive at 6"),
+  answer("5",message="No. a starts with the value 2, and for each iteration of the for loop, we add i to a. if you count carefully, we don't arrive at 5"),
+  answer("4",message="No. a starts with the value 2, and for each iteration of the for loop, we add i to a. if you count carefully, we don't arrive at 4"),
+  answer("3",message="No. a starts with the value 2, and for each iteration of the for loop, we add i to a. if you count carefully, we don't arrive at 3"),
+  answer("2",message="No. a starts with the value 2, and for each iteration of the for loop, we add i to a. if you count carefully, we don't arrive at 2"),
+  answer("9",message="No. a starts with the value 2, and for each iteration of the for loop, we add i to a. if you count carefully, we don't arrive at 9"),
+  answer("10",message="No. a starts with the value 2, and for each iteration of the for loop, we add i to a. if you count carefully, we don't arrive at 10"),
+  allow_retry = TRUE,random_answer_order = TRUE
+)
+```
+
+
+### Question 4
+```
+divides <- function(a, b=10){
+  result <- a/b
+  return(result)
+}
+```
+
+```{r Q4, echo=FALSE}
+question("Which of these commands would provide a number as the output (select all that apply)",
+  answer("divides(0,5)",correct = TRUE,message=""),
+  answer("divides(a=0)",correct = TRUE,message=""),
+  answer("divides(a=5, b=5)",correct = TRUE,message=""),
+  answer("divides(1,0)",message="No, with the command `divides(1,0)`, b=0 and we divide by b, so we will not get a number"),
+  answer("divides(0)",correct = TRUE,message=""),
+  answer("divides(b=8)",message="No, in the command `divides(b=8)`, a is not defined, so we will get an error"),
+  allow_retry = TRUE,random_answer_order = TRUE
+)
+```
+
